@@ -1,17 +1,15 @@
 #![no_std]
 #![no_main]
 
-use cortex_m_rt::entry;
-use cortex_m_semihosting::debug::{EXIT_SUCCESS, ExitStatus};
-use panic_halt as _;
 
-fn exit(status: ExitStatus) -> ! {
-    cortex_m_semihosting::debug::exit(status);
-    loop {}
-}
+use embedded_test_runner::embedded_utils::{EXIT_SUCCESS, exit, init_heap};
+use cortex_m_rt::entry;
+
+
 
 
 #[entry]
 fn main() -> ! {
+    init_heap();
     exit(EXIT_SUCCESS);
 }

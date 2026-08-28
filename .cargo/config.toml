@@ -6,3 +6,7 @@ runner = "qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb -nographic -semiho
 rustflags = [
     "-C", "link-arg=-Tlink.x",
 ]
+
+[alias]
+run64k = "run --bin run64k --no-default-features --features ram-64k"
+run16k = "run --bin run16k --no-default-features --features ram-16k"
