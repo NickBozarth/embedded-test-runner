@@ -12,3 +12,50 @@ macro_rules! new_test {
         )
     );
 }
+
+
+
+
+#[macro_export]
+macro_rules! test_assert {
+    ($conditional:expr) => {
+        $crate::test_assert!(
+            $conditional,
+            ::core::concat!(
+                "Assert failed condition [",
+                ::core::stringify!($conditional),
+                "]"
+            )
+        )
+    };
+
+    ($conditional:expr, $fail_msg:expr) => {
+        if ($conditional) {
+            $crate::test_case::TestResultStatus::Passed
+        } else {
+            $crate::test_case::TestResultStatus::Failed($fail_msg.into())
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! test_assert_eq {
+    ($left:expr, $right:expr) => {
+        $crate::test_assert!($left == $right)
+    };
+
+    ($left:expr, $right:expr, $fail_msg:expr) => {
+        $crate::test_assert!($left == $right, $fail_msg)
+    };
+}
+
+#[macro_export]
+macro_rules! test_assert_ne {
+    ($left:expr, $right:expr) => {
+        $crate::test_assert!($left != $right)
+    };
+
+    ($left:expr, $right:expr, $fail_msg:expr) => {
+        $crate::test_assert!($left != $right, $fail_msg)
+    };
+}
